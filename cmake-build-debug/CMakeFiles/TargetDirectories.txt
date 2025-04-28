@@ -1,0 +1,3 @@
+C:/Users/dylan/CLionProjects/CS415_Project_Component1/cmake-build-debug/CMakeFiles/CS415_Project_Component1.dir
+C:/Users/dylan/CLionProjects/CS415_Project_Component1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/dylan/CLionProjects/CS415_Project_Component1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
