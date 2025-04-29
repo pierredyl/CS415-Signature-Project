@@ -136,6 +136,7 @@ void insertMaxToLast(std::vector<Person *> & vec, int smallIndex, int i) {
   vec[i] = temp;
 }
 
+
 /** **************************************************************************************
  * @remark one version of a sorting algorithm (to be determined) for an array of objects *
  *                                                                                       *
@@ -166,8 +167,47 @@ void sortAlgA ( std::vector<Person *> & vec,
   }
 }
 
+
+
+
+/**
+ * @remark          helper function for recursive version of sortAlgBHelper
+ *
+ * @param  vec            vector to be sorted, containing Person objects                 *
+ * @param  comesBefore    comparison operator to determine when one object < another     *
+ * @param  equals         comparison operator to determine when 2 objects are ==         *
+ * @param   i             index that represents where the largest element must be placed *
+ *
+ * @post                  if there are no more elements to consider, return. otherwise.
+ *                        keep sorting recursively
+ **/
+void sortAlgBHelper(std::vector<Person *> &vec,
+                    bool (comesBefore)(Person, Person),
+                    bool (equals)(Person, Person),
+                    int i) {
+  if (i < 0) {
+    return; // Base case: done
+  }
+
+  int smallIndex = i;
+  for (int j = i - 1; j >= 0; j--) {
+    if (comesBefore(*vec[smallIndex], *vec[j])) {
+      smallIndex = j;
+    }
+  }
+
+  Person* temp = vec[smallIndex];
+  for (int j = smallIndex; j < i; j++) {
+    vec[j] = vec[j + 1];
+  }
+  vec[i] = temp;
+
+  // Recursive call on next smaller i
+  sortAlgBHelper(vec, comesBefore, equals, i - 1);
+}
+
 /** **************************************************************************************
- * @remark alternative version of a sorting algorithm sortAlgA                           *
+ * @remark alternative recursive version of a sorting algorithm sortAlgA using           *
  *                                                                                       *
  * @param  vec            vector to be sorted, containing Person objects                 *
  * @param  comesBefore    comparison operator to determine when one object < another     *
@@ -177,13 +217,14 @@ void sortAlgA ( std::vector<Person *> & vec,
  *         with ordering based on the comesBefore, equals operators                      *
  *                                                                                       *
   *****************************************************************************************/
-
-void sortAlgB ( std::vector<Person *> & vec ,
-                bool comesBefore (Person, Person),
-                bool equals (Person, Person)
-              ) {
-  // to be implemented
+// Husk
+void sortAlgB(std::vector<Person *> &vec,
+              bool (comesBefore)(Person, Person),
+              bool (equals)(Person, Person)) {
+  sortAlgBHelper(vec, comesBefore, equals, static_cast<int>(vec.size()) - 1);
 }
+
+
 /** **************************************************************************************
  * @remark sorting sub to help approximate time for sorting simulation overhead          *
  *                                                                                       *
